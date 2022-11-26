@@ -1,0 +1,96 @@
+import cv2
+import os
+from threading import Thread
+from datetime import datetime, timedelta
+now = datetime.now()
+
+print("Hello! I'm Rohan, the creator of this project.")
+print("I would like to welcome you into my world: the World of Rohan!")
+print("What would you like to know about me?")
+
+
+def video_audio(video, audio):
+    cap = cv2.VideoCapture(video)
+    width = cap.get(3)
+    height = cap.get(4)
+    def music():
+        os.system("afplay " + audio)
+    while (cap.isOpened()):
+        ret, frame = cap.read()
+        frame = cv2.resize(frame, (1920, 1080))
+        mus = Thread(target=music)
+        mus.start()
+        cv2.imshow("video", frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    cap.release()
+    cv2.destroyWindow(video)
+
+
+def menu_display():
+    print("""
+-------------------------------
+1. Introduction --------------> 
+2. Passion for Robotics ------>
+3. Participation in Sports --->
+4. Interest in Music ---------> 
+5. Passion for Coding --------> 
+6. Love of Volunteering ------>  
+7. Exit ---------------------->
+-------------------------------
+""")
+###########################################################################################
+# Intro: Need Vid
+# Music: Need Vid
+# Code: Need Vid
+# Volunteering: Need Vid
+###########################################################################################
+
+def menu_selection():
+    try:
+        user_choice = int(
+          input("Please choose a integer from 1 to 7 to know more about my goals, passions, and hobbies: "))
+    except:
+        user_choice = 0
+    if user_choice == 1:
+        introduction()
+    elif user_choice == 2:
+        passion_for_robotics()
+    elif user_choice == 3:
+        participation_in_sports()
+    elif user_choice == 4:
+        interest_in_music()
+    elif user_choice == 5:
+        passion_for_coding()
+    elif user_choice == 6:
+        love_of_volunteering()
+    elif user_choice == 7:
+        print("\nThank you for using the program! Goodbye!\n")
+    else:
+        print("\nSorry, I do not believe that the option you selected was available. Please try again!")
+
+def introduction():
+    print("You selected: INTRODUCTION")
+    video_audio("Robotics-LASA_Official.mp4", "Introduction-LASA-Audio.wav")
+def passion_for_robotics():
+    print("You selected: PASSION FOR ROBOTICS")
+    video_audio("Robotics-LASA_Official.mp4", "Robotics-LASA-Audio.wav")
+def participation_in_sports():
+    print("You selected: PARTICIPATION IN SPORTS")
+    video_audio("Sports-LASA.mp4", "test1.wav")
+def interest_in_music():
+    print("You selected: INTEREST IN MUSIC")
+    video_audio("Robotics-LASA_Official.mp4", "Music-LASA-Audio.wav")
+def passion_for_coding():
+    print("You selected: PASSION FOR CODING")
+    video_audio("Robotics-LASA_Official.mp4", "Coding-LASA-Audio.wav")
+def love_of_volunteering():
+    print("You selected: LOVE OF VOLUNTEERING")
+    video_audio("Robotics-LASA_Official.mp4", "Volunteering-LASA-Audio.wav")
+
+def main():
+    menu_display()
+    menu_selection()
+
+if __name__ == "__main__":
+    main()
